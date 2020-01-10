@@ -7,8 +7,8 @@ class Game {
   }
 
 
-  turn(pos) {
-    if (this.board.placeMarker(pos, this.currentPlayer.sym)) {
+  turn(col) {
+    if (this.board.placeMarker(col, this.currentPlayer.sym)) {
       this.switchPlayer();
     } else {
       console.log("error in turn func")

@@ -1,0 +1,29 @@
+li {
+  border: 5px solid yellow;
+  height: 75px;
+  width: 75px;
+  list-style: none;
+  border-radius: 50%;
+  background: white;
+}
+
+ul {
+  display: flex;
+  margin-block-start: 0;
+    margin-block-end: 0;
+    padding-inline-start: 0px;
+}
+
+#board {
+  background: yellow;
+  width: min-content;
+  margin: auto;
+}
+
+.r {
+  background: red;
+}
+
+.b {
+  background: black;
+}
