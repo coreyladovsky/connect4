@@ -20,6 +20,17 @@ class Board {
 
   }
 
+  horizontalCheck(pos) {
+    let [row, col] = pos;
+    let fullRow = this.grid[row];
+    for(let i = 0; i < fullRow.length; i++) {
+      if(i + 4 > fullRow.length) return false;
+      let slice = fullRow.slice(i, i + 4);
+      if(slice.every(el => el === slice[0])) return true;
+    }
+    return false;
+  }
+
   verticalCheck(pos) {
     let [row, col] = pos;
     if(row + 3 >= this.height) return false;
@@ -33,4 +44,4 @@ class Board {
 }
 
 let board = new Board(6, 7);
-console.log(board.verticalCheck([2, 2]))
+console.log(board.horizontalCheck([0, 2]))
