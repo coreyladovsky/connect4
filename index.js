@@ -3,12 +3,14 @@ class Board {
     this.height = height;
     this.width = width;
     // this.grid = this.makeBoard(height, width)
-    this.grid = [ [ null, null, null, null, null, null, null ],
-  [ null, null, null, null, null, null, null ],
-  [ null, null, null, null, null, null, null ],
-  [ null, null, null, null, null, null, null ],
-  [ null, null, null, null, null, null, null ],
-  [ null, null, null, null, null, null, null ] ]
+    this.grid = [
+      [ null, null, null, null, null, null, null ],
+      [ null, null, null, null, null, null, null ],
+      [ null, null, null, null, null, null, null ],
+      [ null, null, null, null, null, null, null ],
+      [ null, null, null, null, null, null, null ],
+      [ null, null, null, null, null, null, null ]
+   ]
   }
 
   makeBoard(height, width) {
@@ -20,13 +22,63 @@ class Board {
 
   }
 
+  lefttoRightDiagnolCheck(pos) {
+    let [row, col] = pos;
+    let piece = this.grid[row][col]
+    let results = [piece];
+    let j = col - 1;
+    for(let i = row  - 1; i >= 0; i--) {
+      if(this.grid[i][j] === piece) {
+        results.push(piece);
+        j--;
+      } else {
+        break;
+      }
+    }
+    j = col + 1;
+    for(let i = row  + 1; i < this.height; i++) {
+      if(this.grid[i][j] === piece) {
+        results.push(piece);
+        j++;
+      } else {
+        break;
+      }
+    }
+    return results.length >= 4;
+  }
+
+  rightToLeftDiagnolCheck(pos) {
+    let [row, col] = pos;
+    let piece = this.grid[row][col]
+    let results = [piece];
+    let j = col + 1;
+    for(let i = row  - 1; i >= 0; i--) {
+      if(this.grid[i][j] === piece) {
+        results.push(piece);
+        j++;
+      } else {
+        break;
+      }
+    }
+    j = col - 1;
+    for(let i = row  + 1; i < this.height; i++) {
+      if(this.grid[i][j] === piece) {
+        results.push(piece);
+        j--;
+      } else {
+        break;
+      }
+    }
+    return results.length >= 4;
+  }
+
   horizontalCheck(pos) {
     let [row, col] = pos;
     let fullRow = this.grid[row];
     for(let i = 0; i < fullRow.length; i++) {
       if(i + 4 > fullRow.length) return false;
       let slice = fullRow.slice(i, i + 4);
-      if(slice.every(el => el === slice[0])) return true;
+      if(slice.every(el => !!el && el === slice[0])) return true;
     }
     return false;
   }
@@ -44,4 +96,5 @@ class Board {
 }
 
 let board = new Board(6, 7);
-console.log(board.horizontalCheck([0, 2]))
+// console.log(board.horizontalCheck([5, 2]))
+console.log(board.rightToLeftDiagnolCheck([4, 4]))
