@@ -2,15 +2,23 @@ class Board {
   constructor(height, width) {
     this.height = height;
     this.width = width;
-    // this.grid = this.makeBoard(height, width)
-    this.grid = [
-      [ null, null, null, null, null, null, null ],
-      [ null, null, null, null, null, null, null ],
-      [ null, null, null, null, null, null, null ],
-      [ null, null, null, null, null, null, null ],
-      [ null, null, null, null, null, null, null ],
-      [ null, null, null, null, null, null, null ]
-   ]
+    this.grid = this.makeBoard(height, width)
+  }
+
+  isValidColumn(col) {
+    return !this.grid[0][col];
+  }
+
+  placeMarker(col, sym) {
+    if (this.isValidColumn(col)) {
+      for(let row = this.height - 1; row >= 0; row--) {
+        if (this.grid[row][col] === null) {
+          this.grid[row][col] = sym
+          return true
+        }
+      }
+    }
+    return false
   }
 
   makeBoard(height, width) {
@@ -19,7 +27,8 @@ class Board {
   }
 
   checkWinner(pos) {
-
+    return this.lefttoRightDiagnolCheck(pos) || this.rightToLeftDiagnolCheck(pos) ||
+      this.horizontalCheck(pos) || this.verticalCheck(pos)
   }
 
   lefttoRightDiagnolCheck(pos) {
@@ -94,7 +103,3 @@ class Board {
     return true;
   }
 }
-
-let board = new Board(6, 7);
-// console.log(board.horizontalCheck([5, 2]))
-console.log(board.rightToLeftDiagnolCheck([4, 4]))
