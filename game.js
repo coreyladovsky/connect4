@@ -6,6 +6,9 @@ class Game {
     this.currentPlayer = this.player1
   }
 
+  newGame() {
+    this.board = new Board(6, 7);
+  }
 
   turn(col) {
     if (this.board.placeMarker(col, this.currentPlayer.sym)) {

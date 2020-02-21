@@ -4,6 +4,17 @@ class View {
     this.game = game;
     this.drawBoard(game.board)
     this.bindEvents();
+    this.drawReset()
+  }
+
+  drawReset(){
+    let button = document.createElement("button");
+    button.innerText = "Play Again?"
+    button.addEventListener("click", () => {
+    this.game.newGame();
+    this.drawBoard();
+    })
+    this.el.appendChild(button);
   }
 
   drawBoard(board = this.game.board) {
@@ -19,7 +30,13 @@ class View {
       }
       html += '</ul>'
     }
-    this.el.innerHTML = html;
+    let div = document.querySelector("#gameBoard")
+    if(!div) {
+      div = document.createElement("div");
+      div.id = "gameBoard";
+      this.el.appendChild(div)
+    }
+    div.innerHTML = html
   }
 
   playGame = (e) => {
@@ -27,7 +44,6 @@ class View {
     let col = e.target.value
     this.game.turn(col)
     if(this.game.isGameOver()) {
-      console.log("gamened")
       this.el.removeEventListener('click', this.playGame)
     }
     this.drawBoard()
