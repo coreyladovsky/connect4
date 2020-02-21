@@ -9,10 +9,16 @@ class Game {
 
   turn(col) {
     if (this.board.placeMarker(col, this.currentPlayer.sym)) {
-      this.switchPlayer();
+      if(!this.isGameOver()) {
+        this.switchPlayer();
+      }
     } else {
       console.log("error in turn func")
     }
+  }
+
+  isGameOver() {
+    return this.board.checkWinner()
   }
 
   switchPlayer() {
