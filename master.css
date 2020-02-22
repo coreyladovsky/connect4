@@ -12,14 +12,21 @@ ul {
   margin-block-start: 0;
     margin-block-end: 0;
     padding-inline-start: 0px;
+    background: yellow;
+    width: min-content;
 }
 
-#board {
-  background: yellow;
-  width: min-content;
+#gameBoard {
   margin: auto;
+
+}
+ul:hover {
+  cursor: pointer;
 }
 
+.showPink {
+  background: pink;
+}
 .r {
   background: red;
 }

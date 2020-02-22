@@ -23,7 +23,7 @@ class View {
       html += "<ul>"
       for(let col = 0; col < 7; col++) {
         html += `
-          <li value='${col}' class='${board.get([row, col]) || ""}'>
+          <li value='${col}' class='${board.get([row, col]) || ""} col-${col}'>
 
           </li>
         `
@@ -49,8 +49,30 @@ class View {
     this.drawBoard()
   }
 
+  showCol = (e) => {
+    if(e.target.tagName === "DIV") {
+      this.removePinks()
+    }
+    if(e.target.tagName !== "LI") return
+    this.removePinks()
+    let col = ".col-" + e.target.value;
+    let collection = document.querySelectorAll(col);
+    collection.forEach(el => {
+      el.classList.add("showPink");
+    })
+
+  }
+
+  removePinks() {
+    document.querySelectorAll(".showPink").forEach(el => {
+      el.classList.remove("showPink");
+    })
+  }
+
   bindEvents() {
     this.el.addEventListener('click', this.playGame)
+    this.el.addEventListener('mouseover', this.showCol)
+
   }
 
 }
