@@ -49,8 +49,14 @@ class View {
     for(let row = 0; row < 6; row++) {
       html += "<ul>"
       for(let col = 0; col < 7; col++) {
+        let sym = board.get([row, col])
+        if(sym) {
+          sym += " " + sym + "-Disc"
+        } else {
+          sym = ""
+        }
         html += `
-        <li value='${col}' class='${board.get([row, col]) || ""} col-${col}'>
+        <li value='${col}' class='${sym}  col-${col}' data-row='${row}'>
         
         </li>
         `
@@ -75,7 +81,29 @@ class View {
     if(this.game.isGameOver()) {
       this.el.removeEventListener('click', this.playGame)
     }
-    this.drawBoard()
+    let [row, column] = this.game.lastPlacement();
+    // debugger
+    let columns = document.querySelectorAll(`.col-${column}`)
+      columns = [...columns]
+      columns = columns.filter(el => {
+
+        return el.dataset.row <= row
+      })
+    columns.forEach((el, i) => {
+      setTimeout(() => {
+        el.classList.add('r-Disc')   
+        setTimeout(() => {
+          el.classList.remove('r-Disc')
+        }, 90) 
+      }, i * 90) 
+    })
+
+    let disk = columns.pop();
+    setTimeout(() => {
+      disk.classList.add("r")
+    }, columns.length * 90)
+
+    // this.drawBoard()
   }
 
   showCol = (e) => {

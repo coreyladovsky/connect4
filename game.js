@@ -20,6 +20,10 @@ class Game {
     }
   }
 
+  lastPlacement() {
+    return this.board.lastPlacement;
+  }
+
   isGameOver() {
     return this.board.checkWinner()
   }

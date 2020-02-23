@@ -94,3 +94,23 @@ h1 {
   text-align: center;
   font-family: sans-serif;
 }
+
+@keyframes redSlide {
+  0% {background-position: 0}
+  100% {background-position:  -100}
+}
+
+.r-Disc {
+    width: 75px; 
+    height: 75px;
+    /* background-size: 100% 200%;
+    background-image: linear-gradient(to bottom, white 50%, red 50%);
+    /* transition: background-position 1s; */
+    /* animation: redSlide 1s; */
+    background: red;
+    /* animation-iteration-count: 1; */
+  }
+  
+  /* .r-Disc:hover {
+    background-position: 0 -100%;
+} */

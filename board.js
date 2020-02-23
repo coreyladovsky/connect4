@@ -3,7 +3,7 @@ class Board {
     this.height = height;
     this.width = width;
     this.grid = this.makeBoard(height, width)
-    this.lastPlacment = [];
+    this.lastPlacement = [];
   }
 
   get(pos) {
@@ -20,7 +20,7 @@ class Board {
       for(let row = this.height - 1; row >= 0; row--) {
         if (this.grid[row][col] === null) {
           this.grid[row][col] = sym
-          this.lastPlacment = [row, col]
+          this.lastPlacement = [row, col]
           return true
         }
       }
@@ -33,7 +33,7 @@ class Board {
     return output.map(el => new Array(width).fill(null))
   }
 
-  checkWinner(pos = this.lastPlacment) {
+  checkWinner(pos = this.lastPlacement) {
     if(pos.length === 0) return;
     return this.lefttoRightDiagnolCheck(pos) || this.rightToLeftDiagnolCheck(pos) ||
       this.horizontalCheck(pos) || this.verticalCheck(pos)
