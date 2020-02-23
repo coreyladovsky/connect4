@@ -18,6 +18,8 @@ ul {
 
 #gameBoard {
   margin: auto;
+  width: min-content;
+  display: flex;
 
 }
 ul:hover {
@@ -27,10 +29,68 @@ ul:hover {
 .showPink {
   background: pink;
 }
+
+#showTurn {
+  display: flex;
+  align-items: center;
+}
+
+#showTurn p {
+  margin-left: 10px;
+}
+
+.turnColor {
+  height: 70px;
+  width: 70px;
+  border-radius: 50%;
+}
+
 .r {
   background: red;
 }
 
 .b {
   background: black;
+}
+
+.leg {
+  width: 10px;
+  background: blue;
+  height: 600px;
+}
+
+#board {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  max-width: 1000px;
+  margin: auto;
+}
+
+button {
+  color: white; 
+  background-color: blue;
+  padding: 10px;
+  font-size: 20px;
+  font-family: sans-serif;
+  border-radius: 5px;
+  border: 1px solid darkblue;
+  transition: all .3s ease-in-out;
+}
+
+button:hover {
+  cursor: pointer;
+  background-color: lightblue;
+  color: black;
+}
+
+p {
+  font-size: 20px;
+  font-family: sans-serif;
+  font-weight: bold;
+}
+
+h1 {
+  text-align: center;
+  font-family: sans-serif;
 }

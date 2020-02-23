@@ -7,29 +7,58 @@ class View {
     this.drawReset()
   }
 
+  showTurn() {
+    let div = document.querySelector("#showTurn") || document.createElement("div");
+    div.id = "showTurn"
+    div.innerHTML = "";
+    let p = document.createElement("p");
+    
+    let circle = document.createElement("div");
+    circle.classList.add(this.game.currentPlayer.sym)
+    circle.classList.add("turnColor")
+    
+    if(this.game.isGameOver()) {
+      p.innerText = "WINS!"
+    } else {
+      p.innerText = "its your turn"
+
+    }
+    
+    div.appendChild(circle)
+    div.appendChild(p)
+    this.el.prepend(div);
+  }
+
   drawReset(){
     let button = document.createElement("button");
     button.innerText = "Play Again?"
     button.addEventListener("click", () => {
     this.game.newGame();
     this.drawBoard();
+    this.bindEvents();``
     })
     this.el.appendChild(button);
   }
 
   drawBoard(board = this.game.board) {
+      this.showTurn();
+
     let html = "";
+    html += "<div class='leg'><div class='foot'></div></div>"
+    html += "<div>"
     for(let row = 0; row < 6; row++) {
       html += "<ul>"
       for(let col = 0; col < 7; col++) {
         html += `
-          <li value='${col}' class='${board.get([row, col]) || ""} col-${col}'>
-
-          </li>
+        <li value='${col}' class='${board.get([row, col]) || ""} col-${col}'>
+        
+        </li>
         `
       }
       html += '</ul>'
     }
+    html += "</div>"
+    html += "<div class='leg'></div>"
     let div = document.querySelector("#gameBoard")
     if(!div) {
       div = document.createElement("div");

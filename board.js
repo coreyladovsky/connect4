@@ -34,6 +34,7 @@ class Board {
   }
 
   checkWinner(pos = this.lastPlacment) {
+    if(pos.length === 0) return;
     return this.lefttoRightDiagnolCheck(pos) || this.rightToLeftDiagnolCheck(pos) ||
       this.horizontalCheck(pos) || this.verticalCheck(pos)
   }
@@ -102,7 +103,7 @@ class Board {
   verticalCheck(pos) {
     let [row, col] = pos;
     if(row + 3 >= this.height) return false;
-    for(let i = row; i < row + 3; i++) {
+    for(let i = row; i < row + 4; i++) {
       if(this.grid[i][col] !== this.grid[row][col]) {
         return false;
       }
