@@ -49,18 +49,7 @@ class View {
     for(let row = 0; row < 6; row++) {
       html += "<ul>"
       for(let col = 0; col < 7; col++) {
-        // let sym = board.get([row, col])
-        // if(sym) {
-        //   sym += " " + sym + "-Disc"
-        // } else {
-        //   sym = ""
-        // }
-        // <li value='${col}' class='${sym}  col-${col}' data-row='${row}'>
-        html += `
-        <li value='${col}'  class='col-${col}' data-row='${row}'>
-        
-        </li>
-        `
+        html += `<li value='${col}'  class='col-${col}' data-row='${row}'></li>`
       }
       html += '</ul>'
     }
@@ -103,30 +92,52 @@ class View {
       let disc = columns.pop();
       setTimeout(() => {
         disc.classList.add(sym)
+        this.swapHighlights();
       }, columns.length * 90)
       
       this.showTurn();
-
   }
 
   showCol = (e) => {
     if(e.target.tagName === "DIV") {
-      this.removePinks()
+      this.removeHighlights()
     }
     if(e.target.tagName !== "LI") return
-    this.removePinks()
+    this.removeHighlights()
     let col = ".col-" + e.target.value;
     let collection = document.querySelectorAll(col);
     collection.forEach(el => {
-      el.classList.add("showPink");
+      if(this.game.currentPlayer.sym === "r") {
+        el.classList.add("showPink");
+      } else {
+        el.classList.add("showGray");
+      }
     })
 
   }
 
-  removePinks() {
+  removeHighlights() {
     document.querySelectorAll(".showPink").forEach(el => {
       el.classList.remove("showPink");
     })
+    document.querySelectorAll(".showGray").forEach(el => {
+      el.classList.remove("showGray");
+    })
+  }
+
+  swapHighlights() {
+    let pinks = document.querySelectorAll(".showPink")
+    if(pinks.length > 0) {
+      pinks.forEach(el => {
+        el.classList.remove("showPink");
+        el.classList.add("showGray")
+      })
+    } else {
+      document.querySelectorAll(".showGray").forEach(el => {
+        el.classList.remove("showGray");
+        el.classList.add("showPink")
+      })
+    }
   }
 
   bindEvents() {

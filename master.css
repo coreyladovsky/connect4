@@ -30,6 +30,10 @@ ul:hover {
   background: pink;
 }
 
+.showGray {
+  background: lightgray;
+}
+
 #showTurn {
   display: flex;
   align-items: center;
