@@ -13,7 +13,9 @@ class Game {
   turn(col) {
     if (this.board.placeMarker(col, this.currentPlayer.sym)) {
       if(!this.isGameOver()) {
+        const prevSym = this.currentPlayer.sym
         this.switchPlayer();
+        return prevSym
       }
     } else {
       console.log("error in turn func")

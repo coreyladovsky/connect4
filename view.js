@@ -49,14 +49,15 @@ class View {
     for(let row = 0; row < 6; row++) {
       html += "<ul>"
       for(let col = 0; col < 7; col++) {
-        let sym = board.get([row, col])
-        if(sym) {
-          sym += " " + sym + "-Disc"
-        } else {
-          sym = ""
-        }
+        // let sym = board.get([row, col])
+        // if(sym) {
+        //   sym += " " + sym + "-Disc"
+        // } else {
+        //   sym = ""
+        // }
+        // <li value='${col}' class='${sym}  col-${col}' data-row='${row}'>
         html += `
-        <li value='${col}' class='${sym}  col-${col}' data-row='${row}'>
+        <li value='${col}'  class='col-${col}' data-row='${row}'>
         
         </li>
         `
@@ -77,33 +78,35 @@ class View {
   playGame = (e) => {
     if(e.target.tagName !== "LI") return
     let col = e.target.value
-    this.game.turn(col)
+    let sym = this.game.turn(col)
     if(this.game.isGameOver()) {
       this.el.removeEventListener('click', this.playGame)
     }
-    let [row, column] = this.game.lastPlacement();
-    // debugger
-    let columns = document.querySelectorAll(`.col-${column}`)
+      this.dropDisc(sym);
+    }
+    
+    dropDisc = (sym) => {
+      let [row, column] = this.game.lastPlacement();
+      let columns = document.querySelectorAll(`.col-${column}`)
       columns = [...columns]
       columns = columns.filter(el => {
-
         return el.dataset.row <= row
       })
-    columns.forEach((el, i) => {
-      setTimeout(() => {
-        el.classList.add('r-Disc')   
+      columns.forEach((el, i) => {
         setTimeout(() => {
-          el.classList.remove('r-Disc')
-        }, 90) 
-      }, i * 90) 
-    })
+          el.classList.add(`${sym}-Disc`)   
+          setTimeout(() => {
+            el.classList.remove(`${sym}-Disc`)
+          }, 90) 
+        }, i * 90) 
+      })
+      let disc = columns.pop();
+      setTimeout(() => {
+        disc.classList.add(sym)
+      }, columns.length * 90)
+      
+      this.showTurn();
 
-    let disk = columns.pop();
-    setTimeout(() => {
-      disk.classList.add("r")
-    }, columns.length * 90)
-
-    // this.drawBoard()
   }
 
   showCol = (e) => {
