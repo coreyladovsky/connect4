@@ -20,6 +20,7 @@ class Game {
     } else {
       console.log("error in turn func")
     }
+    return this.currentPlayer.sym
   }
 
   lastPlacement() {
